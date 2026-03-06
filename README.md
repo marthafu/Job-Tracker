@@ -190,6 +190,7 @@ The `WHERE NOT EXISTS` clause prevents duplicate inserts if data already exists.
 2. Push the schema: `npm run db:push`
 3. Start the app: `npm run dev`
 4. Open the preview URL — the Kanban board loads at `/`
+5. Done
 
 ---
 
