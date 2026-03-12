@@ -36,7 +36,7 @@ export const insertProspectSchema = createInsertSchema(prospects).omit({
   interestLevel: z.enum(INTEREST_LEVELS).default("Medium"),
   jobUrl: z.string().optional().nullable(),
   notes: z.string().optional().nullable(),
-  targetSalary: z.string().optional().nullable(),
+  targetSalary: z.string().optional().nullable().transform(v => v === "" ? null : v),
 });
 
 export type InsertProspect = z.infer<typeof insertProspectSchema>;
