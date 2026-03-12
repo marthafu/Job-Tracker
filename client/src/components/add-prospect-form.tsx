@@ -38,6 +38,7 @@ export function AddProspectForm({ onSuccess }: { onSuccess?: () => void }) {
       interestLevel: "Medium",
       notes: "",
       targetSalary: "",
+      followUpDate: "",
     },
   });
 
@@ -106,24 +107,45 @@ export function AddProspectForm({ onSuccess }: { onSuccess?: () => void }) {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="targetSalary"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Target Salary (optional)</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="e.g. $120,000 or $100k–$130k"
-                  {...field}
-                  value={field.value ?? ""}
-                  data-testid="input-target-salary"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="targetSalary"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Target Salary (optional)</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="e.g. $120,000"
+                    {...field}
+                    value={field.value ?? ""}
+                    data-testid="input-target-salary"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="followUpDate"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Follow-Up Date (optional)</FormLabel>
+                <FormControl>
+                  <Input
+                    type="date"
+                    {...field}
+                    value={field.value ?? ""}
+                    data-testid="input-follow-up-date"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <div className="grid grid-cols-2 gap-4">
           <FormField
