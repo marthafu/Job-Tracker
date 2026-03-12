@@ -40,6 +40,7 @@ export async function registerRoutes(
     if (body.jobUrl !== undefined) updates.jobUrl = body.jobUrl || null;
     if (body.notes !== undefined) updates.notes = body.notes || null;
     if (body.targetSalary !== undefined) updates.targetSalary = body.targetSalary || null;
+    if (body.followUpDate !== undefined) updates.followUpDate = body.followUpDate || null;
 
     if (body.status !== undefined) {
       if (!STATUSES.includes(body.status)) {

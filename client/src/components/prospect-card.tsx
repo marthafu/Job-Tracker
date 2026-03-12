@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Prospect } from "@shared/schema";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Trash2, Pencil, Flame, ThumbsUp, Minus, DollarSign } from "lucide-react";
+import { ExternalLink, Trash2, Pencil, Flame, ThumbsUp, Minus, DollarSign, CalendarClock } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -39,6 +39,22 @@ function InterestIndicator({ level }: { level: string }) {
     default:
       return null;
   }
+}
+
+function formatFollowUpDate(dateStr: string): string {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  return new Date(year, month - 1, day).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+function isOverdue(dateStr: string): boolean {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const [year, month, day] = dateStr.split("-").map(Number);
+  return new Date(year, month - 1, day) < today;
 }
 
 export function ProspectCard({ prospect }: { prospect: Prospect }) {
@@ -115,6 +131,21 @@ export function ProspectCard({ prospect }: { prospect: Prospect }) {
             </span>
           )}
         </div>
+
+        {prospect.followUpDate && (
+          <div
+            className={`inline-flex items-center gap-1 text-xs font-medium rounded px-1.5 py-0.5 ${
+              isOverdue(prospect.followUpDate)
+                ? "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400"
+                : "bg-muted text-muted-foreground"
+            }`}
+            data-testid={`text-follow-up-${prospect.id}`}
+          >
+            <CalendarClock className="w-3 h-3 shrink-0" />
+            {isOverdue(prospect.followUpDate) ? "Overdue · " : "Follow up · "}
+            {formatFollowUpDate(prospect.followUpDate)}
+          </div>
+        )}
 
         {prospect.jobUrl && (
           <a

@@ -43,6 +43,7 @@ export function EditProspectForm({ prospect, onSuccess }: EditProspectFormProps)
       interestLevel: prospect.interestLevel as InsertProspect["interestLevel"],
       notes: prospect.notes ?? "",
       targetSalary: prospect.targetSalary ?? "",
+      followUpDate: prospect.followUpDate ?? "",
     },
   });
 
@@ -110,24 +111,45 @@ export function EditProspectForm({ prospect, onSuccess }: EditProspectFormProps)
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="targetSalary"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Target Salary (optional)</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="e.g. $120,000 or $100k–$130k"
-                  {...field}
-                  value={field.value ?? ""}
-                  data-testid="input-edit-target-salary"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="targetSalary"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Target Salary (optional)</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="e.g. $120,000"
+                    {...field}
+                    value={field.value ?? ""}
+                    data-testid="input-edit-target-salary"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="followUpDate"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Follow-Up Date (optional)</FormLabel>
+                <FormControl>
+                  <Input
+                    type="date"
+                    {...field}
+                    value={field.value ?? ""}
+                    data-testid="input-edit-follow-up-date"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <div className="grid grid-cols-2 gap-4">
           <FormField
